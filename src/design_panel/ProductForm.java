@@ -1,7 +1,8 @@
-package User_Panel;
+package design_panel;
 
 import entities.Product;
 import entities.Store;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,8 +15,17 @@ public class ProductForm extends javax.swing.JFrame {
     public ProductForm() {
         initComponents();
         this.setLocation(150, 45);
-        Store.dummyProducts();
+      //  Store.dummyProducts();
         setTableValues();
+    }
+    
+    public void resetfields(){
+        prd_id.setText("");
+        prd_name.setText("");
+        prd_category.setSelectedIndex(0);
+        prd_r_price.setText("");
+        prd_w_sale_price.setText("");
+        prd_stock.setText("");
     }
     
     //setTable content
@@ -34,6 +44,7 @@ public class ProductForm extends javax.swing.JFrame {
                 cols[4] = products.get(i).getW_sale_price();
                 cols[5] = products.get(i).getR_price();
                 model.addRow(cols);
+                resetfields();
                 // one row
             }
         }        
@@ -79,7 +90,6 @@ public class ProductForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        search = new javax.swing.JButton();
         prd_stock = new javax.swing.JTextField();
         prd_id = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -189,7 +199,7 @@ public class ProductForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(product_List);
         product_List.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 550, 330));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 550, 370));
 
         prd_search_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         prd_search_name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -221,15 +231,6 @@ public class ProductForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, -1, -1));
-
-        search.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        search.setText("Search");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
-        getContentPane().add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 134, 120, 30));
 
         prd_stock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         prd_stock.setToolTipText("Enter Student ID ");
@@ -316,6 +317,11 @@ public class ProductForm extends javax.swing.JFrame {
             p.setCategory(prd_category.getSelectedItem().toString());
             p.setStock(Integer.parseInt(prd_stock.getText()));
             Store.updateProduct(p.getPid(), p);
+            resetfields();
+            setTableValues();
+        }
+        else{
+            Store.showErrorMessage("fill the required fields");
         }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -335,23 +341,13 @@ public class ProductForm extends javax.swing.JFrame {
             p.setCategory(prd_category.getSelectedItem().toString());
             p.setStock(Integer.parseInt(prd_stock.getText()));
             Store.deleteProduct(p);
+            resetfields();
+            setTableValues();
         }
+        else
+            Store.showErrorMessage("fill the required fields");
 
     }//GEN-LAST:event_deleteActionPerformed
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        if (!prd_search_name.getText().isEmpty()) {
-            Product obj = Store.searchProductByName(prd_search_name.getText());
-            if(obj!=null){
-                this.setSingleItemTable(obj);
-            }
-            else
-                Store.showErrorMessage("product "+prd_search_name+" data not found");
-        }else{
-            Store.showErrorMessage("fill the required fields");
-        }
-        
-    }//GEN-LAST:event_searchActionPerformed
 
     private void product_ListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_product_ListFocusGained
         // TODO add your handling code here:
@@ -359,16 +355,24 @@ public class ProductForm extends javax.swing.JFrame {
 
     private void prd_search_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prd_search_nameKeyPressed
         // TODO add your handling code here:
-        
+        if (!prd_search_name.getText().isEmpty()
+                && evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Product p = Store.searchProductByName(prd_search_name.getText());
+            setSingleItemTable(p);            
+        }
+        else{
+            setTableValues();
+        }
         
     }//GEN-LAST:event_prd_search_nameKeyPressed
 
     private void product_ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_ListMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) product_List.getModel();
-        int index = product_List.getSelectedRow();        
+        int index = product_List.getSelectedRow();
         prd_id.setText(model.getValueAt(index, 0).toString());
         prd_category.setSelectedItem(model.getValueAt(index, 2));
+        System.out.println(model.getValueAt(index, 2));
         prd_name.setText(model.getValueAt(index, 1).toString());
         prd_stock.setText(model.getValueAt(index, 3).toString());
         prd_w_sale_price.setText(model.getValueAt(index, 4).toString());
@@ -461,7 +465,6 @@ public class ProductForm extends javax.swing.JFrame {
     private javax.swing.JTextField prd_w_sale_price;
     private javax.swing.JTable product_List;
     private javax.swing.JButton save;
-    private javax.swing.JButton search;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 

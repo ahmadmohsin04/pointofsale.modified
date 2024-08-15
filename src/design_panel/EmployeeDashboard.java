@@ -11,12 +11,12 @@ import design_panel.ProductForm;
  *
  * @author Bilal Arif
  */
-public class Dashboard extends javax.swing.JFrame {
+public class EmployeeDashboard extends javax.swing.JFrame {
 
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    public EmployeeDashboard() {
         initComponents();
         this.setLocation(40,0);     
     }
@@ -37,18 +37,7 @@ public class Dashboard extends javax.swing.JFrame {
         profile_menu_item = new javax.swing.JMenuItem();
         logOut_menu_item = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        productPanel = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        sale_portal = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        newOrder = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
@@ -74,71 +63,17 @@ public class Dashboard extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
-        jMenu1.setText("Product");
+        jMenu1.setText("Sale Protal");
 
-        productPanel.setText("Add Product");
-        productPanel.addActionListener(new java.awt.event.ActionListener() {
+        newOrder.setText("new Orders");
+        newOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productPanelActionPerformed(evt);
+                newOrderActionPerformed(evt);
             }
         });
-        jMenu1.add(productPanel);
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem2.setText("Search Product");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Update Product");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem4.setText("Delete Product");
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(newOrder);
 
         jMenuBar1.add(jMenu1);
-
-        sale_portal.setText("Sale Portal");
-        sale_portal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sale_portalMouseClicked(evt);
-            }
-        });
-        sale_portal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sale_portalActionPerformed(evt);
-            }
-        });
-
-        jMenuItem1.setText("Invoice Portal");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        sale_portal.add(jMenuItem1);
-
-        jMenuBar1.add(sale_portal);
-
-        jMenu3.setText("Report");
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("About Us");
-        jMenuBar1.add(jMenu4);
-
-        jMenu5.setText("Contact Us");
-        jMenuBar1.add(jMenu5);
-
-        jMenu6.setText("Help");
-        jMenuBar1.add(jMenu6);
-
-        jMenu8.setText("Settings");
-
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem5.setText("profile");
-        jMenu8.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu8);
 
         setJMenuBar(jMenuBar1);
 
@@ -168,26 +103,11 @@ public class Dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logOut_menu_itemActionPerformed
 
-    private void productPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productPanelActionPerformed
-        // TODO add your handling code here:
-        new ProductForm().setVisible(true);
-
-    }//GEN-LAST:event_productPanelActionPerformed
-
-    private void sale_portalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sale_portalMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sale_portalMouseClicked
-
-    private void sale_portalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sale_portalActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_sale_portalActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void newOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderActionPerformed
         // TODO add your handling code here:
         new Sale_portal().setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        
+    }//GEN-LAST:event_newOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,20 +126,21 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new EmployeeDashboard().setVisible(true);
             }
         });
     }
@@ -227,22 +148,11 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem logOut_menu_item;
-    private javax.swing.JMenuItem productPanel;
+    private javax.swing.JMenuItem newOrder;
     private javax.swing.JMenuItem profile_menu_item;
-    private javax.swing.JMenu sale_portal;
     private javax.swing.JLabel sysDate;
     // End of variables declaration//GEN-END:variables
 }

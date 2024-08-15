@@ -4,32 +4,62 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Store {
-    //static
-    private static ArrayList<Product> products;//stock
-    private static ArrayList<Employee> employees;//employee
-    private static ArrayList<Sale> sales;//store total sale 
-    
-    
-    //addEmployee
-    public static void registerEmployee(Employee obj){
-        if(obj!=null){
-            employees.add(obj);
-        }
-        else
-            Store.showErrorMessage("employee data not received");
-        
-    }
-    
-    
+    //static fields
+    private static ArrayList<Product> products;//stock products
+    private static ArrayList<Employee> employees;
     
     static{
         products = new ArrayList();
+        employees = new ArrayList();
     
     }
     
+    
+    
+    
+    public static String forgetPassword(String u_name){
+        for (int i = 0; i < employees.size(); i++) {
+            if (u_name.equals(employees.get(i).getU_name())){
+                return employees.get(i).getPassword();
+            }
+        }
+        return null;    
+    }
+    
+    public static boolean verify_emp(String u_name,String pass){
+        for (int i = 0; i < employees.size(); i++) {
+            if (u_name.equals(employees.get(i).getU_name())&&
+                    pass.equals(employees.get(i).getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    public static void addEmployee(Employee e){
+        if (e!=null) {
+            employees.add(e);
+        }
+        else
+            showErrorMessage("Employee data not received");    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public static void deleteProduct(Product obj){
-        products.remove(obj);
-        showErrorMessage("delete successfully");
+        for (int i = 0; i < products.size(); i++) {
+            if (obj.getPid()==products.get(i).getPid()) {
+                products.remove(i);
+            }
+        }
+        System.out.println(products.size());
     }
     
     public static void updateProduct(int id, Product obj){

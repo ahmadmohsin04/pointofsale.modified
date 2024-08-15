@@ -3,7 +3,6 @@ package design_panel;
 import entities.Employee;
 import entities.Store;
 
-
 public class SignUp extends javax.swing.JFrame {
 
     public SignUp() {
@@ -17,17 +16,17 @@ public class SignUp extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        emp_u_name = new javax.swing.JTextField();
+        emp_security_ans = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         emp_password = new javax.swing.JPasswordField();
-        emp_security_ans = new javax.swing.JPasswordField();
         emp_security_question = new javax.swing.JComboBox<>();
         emp_signup = new javax.swing.JButton();
         emp_reg_back = new javax.swing.JButton();
         emp_confirm_pass = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
+        emp_u_name = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,14 +47,14 @@ public class SignUp extends javax.swing.JFrame {
         jLabel1.setText("User name");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 75, -1, 34));
 
-        emp_u_name.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        emp_u_name.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        emp_u_name.addActionListener(new java.awt.event.ActionListener() {
+        emp_security_ans.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        emp_security_ans.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        emp_security_ans.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emp_u_nameActionPerformed(evt);
+                emp_security_ansActionPerformed(evt);
             }
         });
-        getContentPane().add(emp_u_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 299, 30));
+        getContentPane().add(emp_security_ans, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 299, 30));
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel3.setText("Password");
@@ -71,14 +70,6 @@ public class SignUp extends javax.swing.JFrame {
 
         emp_password.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         getContentPane().add(emp_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 299, 34));
-
-        emp_security_ans.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        emp_security_ans.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emp_security_ansActionPerformed(evt);
-            }
-        });
-        getContentPane().add(emp_security_ans, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 299, 34));
 
         emp_security_question.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select Security Question --", "Your first Pet name?", "Mother Name?", "Teacher Name" }));
         emp_security_question.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -116,6 +107,15 @@ public class SignUp extends javax.swing.JFrame {
         jLabel6.setText("Security Answer");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, 34));
 
+        emp_u_name.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        emp_u_name.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        emp_u_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emp_u_nameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(emp_u_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 299, 30));
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/light-blue-background.jpg"))); // NOI18N
         jLabel7.setText("jLabel7");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 450));
@@ -123,29 +123,48 @@ public class SignUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emp_u_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_u_nameActionPerformed
+    private void emp_security_ansActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_security_ansActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emp_u_nameActionPerformed
+    }//GEN-LAST:event_emp_security_ansActionPerformed
 
     private void emp_signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_signupActionPerformed
         // TODO add your handling code here:                              
+        if(!emp_u_name.getText().isEmpty()&&
+           !new String(emp_password.getPassword()).isEmpty()&&
+           !new String(emp_confirm_pass.getPassword()).isEmpty()&&
+            emp_security_question.getSelectedIndex()!=0&&
+            !emp_security_ans.getText().isEmpty()){
+            if(new String(emp_password.getPassword()).equals(new String(emp_confirm_pass.getPassword()))){
+                Employee e = new Employee(emp_u_name.getText(),
+                new String(emp_password.getPassword()),
+                emp_security_question.getSelectedItem().toString(),
+                emp_security_ans.getText());
+                Store.addEmployee(e);
+                Store.showErrorMessage("Employee successfully registered");        
+                this.setVisible(false);
+                this.dispose();
+                new Welcome().setVisible(true);
+            }
+            else
+                Store.showErrorMessage("password and confirm password should be same");
+        }
+        else{
+            Store.showErrorMessage("Fill the required Fields");
+        }
+           
         
     }//GEN-LAST:event_emp_signupActionPerformed
 
     private void emp_reg_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_reg_backActionPerformed
         // TODO add your handling code here:
-       
+       this.setVisible(false);
+       this.dispose();
+       new Welcome().setVisible(true);
     }//GEN-LAST:event_emp_reg_backActionPerformed
 
-    private void emp_security_ansActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_security_ansActionPerformed
+    private void emp_u_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emp_u_nameActionPerformed
         // TODO add your handling code here:
-        Employee e= new Employee();
-        //value get from gui 
-        
-        Store.registerEmployee(e);
-        
-        
-    }//GEN-LAST:event_emp_security_ansActionPerformed
+    }//GEN-LAST:event_emp_u_nameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,7 +205,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JPasswordField emp_confirm_pass;
     private javax.swing.JPasswordField emp_password;
     private javax.swing.JButton emp_reg_back;
-    private javax.swing.JPasswordField emp_security_ans;
+    private javax.swing.JTextField emp_security_ans;
     private javax.swing.JComboBox<String> emp_security_question;
     private javax.swing.JButton emp_signup;
     private javax.swing.JTextField emp_u_name;

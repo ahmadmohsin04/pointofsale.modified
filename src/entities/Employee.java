@@ -1,33 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entities;
 
-/**
- *
- * @author Bilal Arif
- */
 public class Employee {
     private String u_name;
     private String password;
     private String security_q;
     private String security_a;
 
-    public Employee() {
+    public Employee(){
+    
     }
-
-    
-    
-    
+        
     public Employee(String u_name, String password, String security_q, String security_a) {
         this.u_name = u_name;
         this.password = password;
         this.security_q = security_q;
         this.security_a = security_a;
     }
-
-    
     
     public String getU_name() {
         return u_name;
@@ -61,9 +49,7 @@ public class Employee {
         this.security_a = security_a;
     }
     
-   
     
-    
-    
-    
+            
+            
 }

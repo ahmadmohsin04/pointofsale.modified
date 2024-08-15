@@ -1,5 +1,6 @@
 package design_panel;
 
+import entities.Store;
 import javax.swing.*;
 /**
  *
@@ -208,16 +209,40 @@ public class Welcome extends javax.swing.JFrame {
 
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
         // TODO add your handling code here:        
-        
+        this.setVisible(false);
+        this.dispose();
+        new SignUp().setVisible(true);
     }//GEN-LAST:event_signUpActionPerformed
 
     private void forgetPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgetPasswordActionPerformed
         // TODO add your handling code here:                    
-
+        String u_name = JOptionPane.showInputDialog(null, "Enter user name");
+        String pass = Store.forgetPassword(u_name);
+        if (pass!=null) {
+            Store.showErrorMessage("Your recover password is "+ pass);
+            
+        }
     }//GEN-LAST:event_forgetPasswordActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:    
+        if(!emp_user_name.getText().isEmpty()&&
+           !new String(emp_pass.getPassword()).isEmpty()){
+            boolean flag = Store.verify_emp(emp_user_name.getText(), new String(emp_pass.getPassword()));
+            if(flag){
+                this.setVisible(false);
+                this.dispose();
+                new EmployeeDashboard().setVisible(true);
+            }
+            else
+                Store.showErrorMessage("user name or password invalid");
+        
+        }
+        else{
+            Store.showErrorMessage("fill the required fields");
+        }
+        
+        
         
     }//GEN-LAST:event_loginActionPerformed
 
